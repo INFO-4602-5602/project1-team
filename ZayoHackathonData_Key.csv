@@ -1,0 +1,41 @@
+OBJECT,,FIELD,DESCRIPTION
+Building,An address; a physicial building,Net Classification,On-Net: Lit equipment
+,,,Fiber Only: No lit equipment
+,,,Restricted: Limited availability
+,,,Stubbed: No active fiber
+,,,Type 2: 3rd party circuit
+,,Network Proximity,Straight-line distance from building to fiber (ft)
+,,On Zayo Network Status,Is the building connected to our network?
+,,Building Type,"i.e. office, hospital, cell tower, etc."
+,,Estimated Build Cost,"Cost to connect building to fiber, based on network proximity"
+Account,A customer record,Industry,Company's field of business
+,,Vertical,Company's field of business - subcategory
+,,Total BRR,Total monthly recurring revenue
+,,AnnualRevenue,Company's annual revenue
+,,NumberOfEmployees,Number of employees
+,,DandB Revenue,External revenue data from Dun & Bradstreet
+,,DandB Total Employees,External employee data from Dun & Bradstreet
+Site,A customer's presence at a building,Customer Site Purpose,"i.e. office, hospital, cell tower, etc."
+Market,A geographical area used to define costs,Market Name,Market name
+,,Market ID,Unique identifier
+,,Market Density Zone,Geographical area - subdivision of market
+,,New Splice New Access Point,Cost for creating a new access point
+,,New Splice Existing Access Point,Cost for splicing at an existing access point
+CPQ,A quote requested by a customer,CPQ ID,Unique identifier
+,,CreatedDate,Created date
+,,Product Group,Zayo product group
+,,X36 MRC List,Monthly recurring cost (36 month term)
+,,X36 NPV List,Total profit over time
+,,X36 NRR List,Non-recurring cost
+Opportunity,A quote created and pursued by a sales rep,Opp ID,Unique identifier
+,,StageName,Stage from 1 -Working to 5 - Accepted or Lost
+,,IsClosed,True/false (closed if opp was lost or won)
+,,IsWon,True/false
+,,CreatedDate,Created date
+,,Term in Months,Length of service agreement
+,,Opportunity Type,New service or change in service
+,,Product Group,Zayo product group
+Service,A product is provided to the customer,Svc ID,Unique identifier
+,,Total MRR,Total monthly recurring revenue
+,,Netx MRC,Monthly recurring cost for leased fiber
+,,Product Group,Zayo product group
