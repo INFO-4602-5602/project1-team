@@ -3,6 +3,13 @@
 Due 4.14.2017 by 11:59pm through GitHub Classroom 
 Projects may be submitted up to 3 days late, with a 10% penalty per day.
 
+<h2>Running the Project</h2>
+1) Install node globally if you don't have it.
+2) Run <code>node node_modules\http-server\bin\http-server</code> OR <code>node node_modules/http-server/bin/http-server</code>
+3) Navigate to http://127.0.0.1:8080
+
+LET ME (MATT) KNOW IF THIS DOESN'T WORK 
+
 <h2>Overview: </h2>
 You've been provided consumer data by Zayo. They simply want to understand what's going on in all of this data! Your goal is to create a series of interactive visualizations that can be used to explore different aspects of this data.
 
