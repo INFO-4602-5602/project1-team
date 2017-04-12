@@ -6,7 +6,7 @@ var svg = d3.select("svg"),
     diameter = +svg.attr("width"),
     g = svg.append("g").attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
 
-    
+
 
 var pack = d3.pack()
     .size([diameter - margin, diameter - margin])
@@ -16,15 +16,15 @@ d3.json("result.json", function(error, root) {
   if (error) throw error;
 
   root = d3.hierarchy(root)
-      .sum(function(d) { 
+      .sum(function(d) {
 
       	return d.size;
-      	
-      	
-      	
 
-      	
-      
+
+
+
+
+
       })
       .sort(function(a, b) { return b.value - a.value; });
 root.sum
@@ -51,7 +51,7 @@ var tooltip = d3.select("body").append("div").attr("class", "toolTip");
   var text = g.selectAll("text")
     .data(nodes)
     .enter().append("text")
-      .attr("class", function(d) { 
+      .attr("class", function(d) {
       	if(d.depth<2){return "label"}
       	else{return "label_leaf"}
   })
@@ -98,6 +98,6 @@ var tooltip = d3.select("body").append("div").attr("class", "toolTip");
     text.text(function(d){
     	return d.data.name;
     })
-    
+
   }
 });
