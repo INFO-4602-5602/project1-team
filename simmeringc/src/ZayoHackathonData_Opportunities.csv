@@ -1,4 +1,4 @@
-,ï¿½ï¿½ï¿½Opportunity ID,Account ID,StageName,IsClosed,IsWon,CreatedDate,Term in Months,Service,Opportunity Type,Product Group,Building ID,Market,Street Address,City,State,Postal Code,Network Proximity,On Zayo Network Status,Latitude,Longitude
+,‰Û¢ÌöÌÛOpportunity ID,Account ID,StageName,IsClosed,IsWon,CreatedDate,Term in Months,Service,Opportunity Type,Product Group,Building ID,Market,Street Address,City,State,Postal Code,Network Proximity,On Zayo Network Status,Latitude,Longitude
 0,Opp-000001,Acct-000007,Closed - Lost,TRUE,FALSE,7/1/16,12,,New Service,Ethernet,Bldg-012582,Atlanta,56 Marietta St NW,Atlanta,GA,30303,66.45,On Zayo Network,33.755431,-84.391561
 1,Opp-000002,Acct-000986,5 - Accepted,TRUE,TRUE,7/1/16,60,,New Service,Dark Fiber - Metro,Bldg-016855,Atlanta,300 Satellite Blvd NW,Suwanee,GA,30024,374.79,On Zayo Network,34.0354213,-84.0608807
 2,Opp-000002,Acct-000986,5 - Accepted,TRUE,TRUE,7/1/16,60,,New Service,Dark Fiber - Metro,Bldg-109003,Atlanta,305 Satellite Blvd NW,Suwanee,GA,30024,250.74,On Zayo Network,34.0363742,-84.0633047
@@ -5217,8 +5217,10 @@
 5215,Opp-003495,Acct-000019,3 - Committed,FALSE,FALSE,3/14/17,48,,New Service,Wavelengths - Long Haul,Bldg-014866,Dallas,1950 N Stemmons Fwy,Dallas,TX,75207,239.8,On Zayo Network,32.800805,-96.819612
 5216,Opp-003496,Acct-000822,2 - Best Case,FALSE,FALSE,3/14/17,36,,New Service,Wavelengths - Long Haul,Bldg-017035,Denver,910 15th St,Denver,CO,80202,96.49,On Zayo Network,39.74556,-104.995682
 5217,Opp-003497,Acct-000025,5 - Accepted,TRUE,TRUE,3/14/17,1,,New Service,Dark Fiber - Metro,Bldg-111796,Atlanta,Terrell Mill Rd SE & Bentley Rd SE,Marietta,GA,30067,23.59,On Zayo Network,33.9138601,-84.4715457
-5218,Opp-003497,Acct-000025,5 - Accepted,TRUE,TRUE,3/14/17,1,,New Service,Dark Fiber - Metro,Bldg-409732,Atlanta,Cobb Pkwy & Lake Park Dr,Smyrna,GA,30080,34.51,Build in Progress,33.896445,84.481574
-5219,Opp-003497,Acct-000025,5 - Accepted,TRUE,TRUE,3/14/17,1,,New Service,Dark Fiber - Metro,Bldg-523496,Atlanta,Powers Ferry Rd SE & Interstate N Hwy,Marietta,GA,30067,,Not on Zayo Network,33.900421,84.481574
+5218,Opp-003497,Acct-000025,5 - Accepted,TRUE,TRUE,3/14/17,1,,New Service,Dark Fiber - Metro,Bldg-409732,Atlanta,Cobb Pkwy & Lake Park Dr,Smyrna,GA,30080,34.51,Build in Progress,33.896445,-84.481574
+5219,Opp-003497,Acct-000025,5 - Accepted,TRUE,TRUE,3/14/17,1,,New Service,Dark Fiber - Metro,Bldg-523496,Atlanta,Powers Ferry Rd SE & Interstate N Hwy,Marietta,GA,30067,,Not on Zayo Network,33.900421,-84.48157
+5218,Opp-003497,Acct-000025,5 - Accepted,TRUE,TRUE,3/14/17,1,,New Service,Dark Fiber - Metro,Bldg-409732,Atlanta,Cobb Pkwy & Lake Park Dr,Smyrna,GA,30080,34.51,Build in Progress,33.896445,-84.481574
+5219,Opp-003497,Acct-000025,5 - Accepted,TRUE,TRUE,3/14/17,1,,New Service,Dark Fiber - Metro,Bldg-523496,Atlanta,Powers Ferry Rd SE & Interstate N Hwy,Marietta,GA,30067,,Not on Zayo Network,33.900421,-84.481574
 5220,Opp-003498,Acct-000830,5 - Accepted,TRUE,TRUE,3/14/17,24,,New Service,Wavelengths - Metro,Bldg-017035,Denver,910 15th St,Denver,CO,80202,96.49,On Zayo Network,39.74556,-104.995682
 5221,Opp-003498,Acct-000830,5 - Accepted,TRUE,TRUE,3/14/17,24,,New Service,Wavelengths - Metro,Bldg-058803,Denver,11900 E Cornell Ave,Aurora,CO,80014,447.82,On Zayo Network,39.660966,-104.850001
 5222,Opp-003499,Acct-000846,1 - Working,FALSE,FALSE,3/14/17,,,New Service,Dark Fiber - Metro,Bldg-120272,Dallas,819 Taylor St,Fort Worth,TX,76102,293.82,On Zayo Network,32.750171,-97.331473
