@@ -1,0 +1,44 @@
+.node {
+  cursor: pointer;
+  stroke: #ff6600;
+  stroke-width: 1.5px;
+}
+
+.node:hover {
+  stroke: #0080BB;
+  stroke-width: 1.5px;
+}
+
+.node--leaf {
+  stroke: #ff6600;
+  stroke-width: 1.5px;
+}
+
+.label {
+  font-size: 30px;
+  font-family: Helvetica;
+  text-anchor: middle;
+  color: #0080BB;
+  
+}
+
+.label_leaf,
+.node--root,
+.node--leaf {
+  font-size: 12px;
+  font-family: Helvetica;
+  text-anchor: middle;
+  color: #0080BB;
+}
+
+.toolTip {
+  position: absolute;
+  display: none;
+  min-width: 80px;
+  height: auto;
+  background: none repeat scroll 0 0 #0080BB;
+  border: 1.5px solid #000;
+  padding: 5px;
+  text-align: center;
+  font-size: 14px;
+}
