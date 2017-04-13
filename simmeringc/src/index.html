@@ -130,6 +130,12 @@ svg.selectAll("circle")
     g.selectAll("path")
         .classed("active", centered && function(d) { return d === centered; });
 
+    //Same projection and transformation as applicable to the path elements.
+    d3.selectAll("circle")
+    .transition()
+    .duration(750)
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+
     g.transition()
         .duration(750)
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
