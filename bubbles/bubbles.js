@@ -67,10 +67,10 @@ d3.json("result.json", function(error, root) {
   root = d3.hierarchy(root)
       .sum(function(d) { 
       	return d.size;
+      })
       .sum(function(d) {
 
       	return d.size;
-
       })
       .sort(function(a, b) { return b.value - a.value; });
 	root.sum
