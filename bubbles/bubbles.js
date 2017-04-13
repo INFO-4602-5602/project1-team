@@ -1,7 +1,7 @@
 // Used example from https://bl.ocks.org/mbostock/7607535 to build circle packing vis
 //
 
-<<<<<<< HEAD
+
 width = 1000
 height = 960
 var svg = d3.select("#bubbles").append("svg")
@@ -16,9 +16,9 @@ var color = d3.scaleLinear().domain([0,1]).range(["#ffd1b2","#f25f02"]).interpol
     g = svg.append("g").attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
     g2= svg.append("g").attr("transform", "translate(" +0+ "," + 0+ ")");
     
-=======
 
->>>>>>> ca5437634cb642a02de99ee64eb41cb0d339f79e
+
+
 
 var pack = d3.pack()
     .size([diameter - margin, diameter - margin])
@@ -65,20 +65,12 @@ d3.json("result.json", function(error, root) {
   if (error) throw error;
 
   root = d3.hierarchy(root)
-<<<<<<< HEAD
       .sum(function(d) { 
       	return d.size;
-=======
       .sum(function(d) {
 
       	return d.size;
 
-
-
-
-
-
->>>>>>> ca5437634cb642a02de99ee64eb41cb0d339f79e
       })
       .sort(function(a, b) { return b.value - a.value; });
 	root.sum
