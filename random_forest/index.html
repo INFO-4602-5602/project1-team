@@ -1,0 +1,175 @@
+<html>
+<head>
+<link rel="stylesheet" href="style.css" type="text/css" media="all">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+</head>
+<body>
+<br>
+
+<h1>Prediction & Feature Importance</h1>
+
+<p>One of the first steps in our visualization process was to identify important features distinguishing won from lost opportunities. These features were used to inform what attributes of our data we visualized. We used a popular, <a href="https://en.wikipedia.org/wiki/Supervised_learning">supervised</a>, machine learning algorithm called a <a href="https://en.wikipedia.org/wiki/Random_forest">random forest</a> for predicting whether or not a sales opportunity will be won or lost. This algorithm is ideal in several ways: (1) it's robust to <a href="https://en.wikipedia.org/wiki/Overfitting">overfitting</a>, (2) while still being very accurate, and (3) still highly interpretable.</p>
+
+<p>In the following sections, we will give a outline of the steps taken to create our classifier - from picking features, to a more in-depth treatment of random forests, to evaluating accuracy and identifying important features.</p>
+
+<h2>Feature Engineering</h2>
+
+<p>Since a random forest is a supervised algorithm, we need to give it examples of won and lost opportunities to learn from. The algorithm looks at <a href="https://en.wikipedia.org/wiki/Feature_(machine_learning)">features</a> of both won and lost opportunities and identifies which are best for distinguishing them from each other.</p>
+
+<p>Before anything else, we added a new feature to our data called <a>'IsCommitted'</a>. After speaking with representatives from Zayo, we learned that opportunities in stages <a>'3 - Committed'</a>, <a>'4 - Closed'</a>, or <a>'5 - Accepted'</a>, were basically won deals. Our new feature <a>'IsCommitted'</a> was true for any opportunity within one of those stages and false for any 'Closed - Lost' opportunities. This was the feature we asked our classifier to predict. Opportunities in stages <a>'1 - Working'</a> or <a>'2 - Best Case'</a> were held out from our training set. We used our classifier to predict the probability of winning those opportunities and these probabilities are shown in our map.</p>
+
+<p>At first we considered all of the attributes of the given data. But attributes which we believed would be too unique (in other words, would hold no predictive power) were removed. These included features like <a>'Account ID'</a>, <a>'Opportunity ID'</a>, and <a>'Building ID'</a>. The reduced feature set included:
+<ul>
+<li><b title="Length of service agreement">Term in Months:</b> Length of service agreement</li>
+<li><b title="New service or change in service">Opportunity Type:</b> New service or change in service</li>
+<li><b title="Zayo product group">Product Group:</b> Zayo product group</li>
+<li><b title="Company's field of business">Industry:</b> Company's field of business</li>
+<li><b title="Company's field of business - subcategory">Vertical:</b> Company's field of business - subcategory</li>
+<li><b title="Total monthly recurring revenue">Total BRR:</b> Total monthly recurring revenue</li>
+<li><b title="Company's annual revenue">Annual Revenue:</b> Company's annual revenue</li>
+<li><b title="Company's number of employees">Number of Employees:</b> Company's number of employees</li>
+<li><b title="External revenue data from Dun & Bradstreet">D & B Revenue:</b> External revenue data from Dun & Bradstreet</li>
+<li><b title="External employee data from Dun & Bradstreet">D & B Total Employees:</b> External employee data from Dun & Bradstreet</li>
+<li><b title="Monthly recurring cost (36 month term)">X36 MRC List:</b> Monthly recurring cost (36 month term)</li>
+<li><b title="Non-recurring cost">X36 NRR List:</b> Non-recurring cost</li>
+<li><b title="Total profit over time">X36 NPV List:</b> Total profit over time</li>
+<li><b title="Market name">Market:</b> Market name</li>
+<li><b title="City of opportunity">City:</b> City of opportunity</li>
+<li><b title="State of opportunity">State:</b> State of opportunity</li>
+<li><b title="Postal code of opportunity">Postal Code:</b> Postal code of opportunity</li>
+<li><b title="Is the building connected to our network?">On Zayo Network Status:</b> Is the building connected to our network?</li>
+<li><b title="Type of equipment">Net Classification:</b> Type of equipment</li>
+<li><b title="New service or change in service">Type:</b> New service or change in service</li>
+<li><b title="Straight-line distance from building to fiber (ft)">Network Proximity:</b> Straight-line distance from building to fiber (ft)</li>
+<li><b title="Cost to connect building to fiber, based on network proximity">Estimated Build Cost:</b> Cost to connect building to fiber, based on network proximity</li>
+</ul>
+</p>
+
+<p>We fed all of the above features of our won and lost opportunities to our classifier for training our random forest classifier.</p>
+
+<h2>Random Forest</h2>
+
+<p>A random forest is a group of <a href="https://en.wikipedia.org/wiki/Decision_tree_learning">decision trees</a>, each trained on a subset of the features (a <a href="https://en.wikipedia.org/wiki/Boosting_(machine_learning)">"weak learner"</a>). When making a predicting the random forest takes a vote among each of its decision trees. The likelihood that an opportunity will be won or lost is the average vote across the whole collection of trees.</p>
+
+<p>A single decision tree inside of our random forest looks something like this:</p> 
+
+<img src="tree.png"><img>
+<br><br>
+
+<p>You can see at the root of the tree we make a decision on an opportunity's "On Zayo Network Status". If the decision is true, we move down the left of the tree. Otherwise, we move right. In predicting whether or not an opportunity is commited, we move down the each of the trees in our forest, answering questions about the opportunity's features. At the leaf of each tree a prediction is made.</p>
+
+<h2>Testing for Accuracy</h2>
+
+<p>Okay so, we've talked a lot about what features we use and our model, but this all doesn't mean very much unless our predictions are accurate right? In order to establish whether or not our classifier is accurate, we train on 80% of our data and test on the remaining 20% (<a href="https://en.wikipedia.org/wiki/Cross-validation_(statistics)#Holdout_method">"holdout method"</a>). In doing so, we found our classifier to be 98.27% accurate on predictions of our holdout set.</p>
+
+<div class="code">
+> from sklearn import ensemble <br>
+> <br>
+> clf = ensemble.RandomForestClassifier() <br>
+> fraction = 4.0/5.0 <br>
+> shuffled = opp_filtered.sample(frac=1) <br>
+> <br>
+> trainX = shuffled[features][:int(round(fraction*len(shuffled)))].values <br>
+> trainY = shuffled[prediction][:int(round(fraction*len(shuffled)))].values <br>
+> <br>
+> clf = clf.fit(trainX, trainY) <br>
+> <br>
+> testX = shuffled[features][int(round(fraction*len(shuffled))):].values <br>
+> testY = shuffled[prediction][int(round(fraction*len(shuffled))):].values <br>
+> <br>
+> print(clf.score(testX, testY)) <br><br>
+0.982769099021 <br>
+</div>
+
+<h2>Important Features</h2>
+
+<p>Finally, now that we've established that our classifier is very accurate, we can have some good faith in the <a href="https://en.wikipedia.org/wiki/Random_forest#Variable_importance">important features</a> of our classifier. The discussion of this get's a little complicated, but the gist is that we can ask our algorithm to rank the features which give us the cleanest splits (<a href="https://en.wikipedia.org/wiki/Decision_tree_learning#Gini_impurity">"Gini impurity"</a>) among our <a>'IsCommitted'</a> and not <a>'IsCommitted'</a> opportunities.<p>
+
+<p>Below is a bar chart of the most important features. The y-scale has been omitted, since it's the relative difference between bars that is more important. As you can see, the first three important features are <a>'Term in Months'</a>, <a>'On Zayo Network Status'</a>, and <a>'Total BRR'</a>.<p>
+
+<div id="barchart">
+
+<script type="text/javascript">
+	var w = 1500; // Width of our visualization
+    var h = 500; // Height of our visualization
+    var xOffset = 50; // Space for x-axis labels
+    var yOffset = 100; // Space for y-axis labels
+    var margin = 10; // Margin around visualization
+
+	buildBarchart('feature_importance.csv', 'x');
+
+    function buildBarchart(data, value) {
+        d3.csv(data, function(csvData) {
+            var anscombe_I = csvData;
+                
+            // Put your part two code here ***********************
+            var barHeight = 40;
+
+            // Scale height of each bar
+            var yScale = d3.scale.linear()
+                    .domain([0, d3.max(anscombe_I, function(d) {return parseFloat(d[value]);})])
+                    .range([h - yOffset - margin, margin]);
+            var xScale = d3.scale.linear().domain([0, anscombe_I.length])
+                    .range([xOffset + margin, w - margin])
+
+            // Create an SVG element to contain our visualization
+            var chart = d3.select("#barchart")
+                            .append("svg:svg")
+                            .attr("width", w)
+                            .attr("height", h);
+
+            // Create x- and y-axes. Add a graphics element to hold the axes.
+            var xAxis = d3.svg.axis()
+                        .scale(xScale)
+                        .orient("bottom")
+                        .ticks(0);
+            var xAxisG = chart.append('g')
+                        .attr('class', 'axis')
+                        .attr('transform', 'translate(0, ' + (h - yOffset) + ')')
+                        .style("fill", "#f3732b")
+                        .style('stroke-width', '1px')
+                        .call(xAxis);
+
+            var yAxis = d3.svg.axis()
+                        .scale(yScale)
+                        .orient("left")
+                        .ticks(5);
+            var yAxisG = chart.append('g')
+                        .attr('class', 'axis')
+                        .attr('transform', 'translate(' + xOffset + ', 0)')
+                        .style("fill", "#ffffff")
+                        .call(yAxis);
+                
+            // Create a bar chart using the x-values (labelled x) for one of the four datasets (your choice of which one).
+            var bar = chart.selectAll("rect").data(anscombe_I).enter().append("rect");
+            bar.attr("id", function(d, i) { return "rect-" + i; });
+
+            // The height of the bar should correspond to the x-value of the data, the order of the bars should correspond to either their natural order in the dataset or to the relative x-value.
+            bar.style("fill", "#004f64")
+                .attr("x", function(d, i) { return xScale(i); })
+                .attr("y", function(d, i) { return yScale(d[value]); })
+                .attr("width", function(d) { return  barHeight; })
+                .attr("height", function(d, i) {return h - margin - yOffset - yScale(d[value]); });
+
+            // This is so hacky! Help!
+            var labels = ['Term in Months', 'On Zayo Network Status', 'Total BRR', 'Product Group_opp', 'Network Proximity', 'Postal Code', 'Estimated Build Cost', 'Type', 'City', 'X36 MRC List', 'X36 NPV List', 'X36 NRR List', 'Net Classification', 'Market', 'Opportunity Type', 'State', 'NumberOfEmployees', 'Vertical', 'DandB Total Employees', 'Industry', 'DandB Revenue', 'AnnualRevenue']
+            bar.append('svg:title').text(function(d, i) {return labels[i];})
+
+            // Hover-over
+            var correspondingBar = chart.selectAll("rect")
+                .each(function(d, i) {
+                    var select = d3.selectAll("#rect-" + i);
+                    select.on('mouseover', function() {select.style("fill", "#f3732b");});
+                    select.on('mouseout', function() {
+                    	select.style("fill", "#004f64");
+                    });
+                });
+        });
+    };
+
+</script>
+
+</body>
+<footer></footer>
+</html>
