@@ -8,7 +8,7 @@
 div.tooltip {
  	position: absolute;
 	text-align: center;
-	width: 60px;
+	width: 80px;
 	height: 28px;
 	padding: 2px;
 	font: 12px sans-serif;
@@ -16,9 +16,6 @@ div.tooltip {
 	border: 0px;
 	border-radius: 8px;
 	pointer-events: none;
-}
-#states .active {
-  fill: #39FF14;
 }
 path:hover {
 	fill-opacity: .7;
@@ -101,7 +98,7 @@ svg.selectAll("circle")
     	div.transition()
       	   .duration(200)
            .style("opacity", .9);
-           div.text(d.place)
+           div.text(d["Account ID"])
            .style("left", (d3.event.pageX) + "px")
            .style("top", (d3.event.pageY - 28) + "px");
 	})
