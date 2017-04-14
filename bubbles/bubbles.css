@@ -1,7 +1,7 @@
 .node {
   cursor: pointer;
-  stroke: #ff6600;
-  stroke-width: 1.5px;
+ /* stroke: #ff6600;
+  stroke-width: 1.5px;*/
 }
 
 .node:hover {
@@ -10,13 +10,17 @@
 }
 
 .node--leaf {
-  stroke: #ff6600;
-  stroke-width: 1.5px;
+ /* stroke: #ff6600;
+  stroke-width: 1.5px;*/
+}
+body{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", "sans-serif";
+	font-style: normal;
 }
 
 .label {
   font-size: 30px;
-  font-family: Helvetica;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", "sans-serif";
   text-anchor: middle;
   color: #0080BB;
   
@@ -26,12 +30,19 @@
 .node--root,
 .node--leaf {
   font-size: 12px;
-  font-family: Helvetica;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", "sans-serif";
   text-anchor: middle;
   color: #0080BB;
 }
 
+
+.legend{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", "sans-serif";
+	font-style: normal;
+}
+
 .toolTip {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", "sans-serif";
   position: absolute;
   display: none;
   min-width: 80px;
@@ -41,4 +52,10 @@
   padding: 5px;
   text-align: center;
   font-size: 14px;
-}
+  opacity: 0.95;
+  border-radius: 10px;
+ }
+/* .bubbles{
+ 	  display: flex;
+  	  align-self: center;
+ }*/
