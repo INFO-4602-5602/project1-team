@@ -1,4 +1,4 @@
-# Project1 Readme
+# Project1 README
 
 <h2>Overview: </h2>
 
@@ -8,12 +8,12 @@ In order to help Zayo better identify which market (Denver, Atlanta, or Dallas) 
 1. Introduction to random forest classifier. Bar chart displaying feature importances changes color and has a tooltip displaying the label.
 2. Hierarchical bubble chart for viewing percentage of open opportunities in each state and city. Clicking on a state bubble will zoom in on collection of cities. Tooltip displays city, number of opportunities, and percent of open opportunities. 
 3. Map of all opportunities in each city, color-coded by our prediction that an opportunity will close. Clicking on a state will zoom in on that state. Tooltip displays our prediction this opportunity will close.
-4. Bar chart for displaying aggregate amount of monthly recurring revenue ("Total BRR") for each state, broken down by opportunity stage. Dropdown menu for filtering results by stage of opportunity.
-5. Distribution of contract lengths ("Term in Months").
+4. Bar chart for displaying aggregate amount of monthly recurring revenue (`Total BRR`) for each state, broken down by opportunity stage. Dropdown menu for filtering results by stage of opportunity.
+5. Distribution of contract lengths (`Term in Months`).
 
 <h3>Design Process</h3>
 
-Before settling on these visualizations, we build a random forest classifier to identify key features distinguishing won from lost opportunities. These important features ("Term in Months", "Total BRR") are highlighted in the above visualizations. The classifier is also used to generate predictions for `1 - Working` and `2 - Best Case` opportunities. These probabilities are used to color the opportunities on our map.
+Before settling on these visualizations, we build a random forest classifier to identify key features distinguishing won from lost opportunities. These important features (`Term in Months`, `Total BRR`) are highlighted in the above visualizations. The classifier is also used to generate predictions for `1 - Working` and `2 - Best Case` opportunities. These probabilities are used to color the opportunities on our map.
 
 The visualizations chosen addressed the requirements of the project in terms of diversity of visualization types:
 1. Spatial and non-spatial: our second and third visualizations are spatial, and other visualizations are non-spatial
