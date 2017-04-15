@@ -16,12 +16,12 @@ In order to help Zayo better identify which market (Denver, Atlanta, or Dallas) 
 Before settling on these visualizations, we build a random forest classifier to identify key features distinguishing won from lost opportunities. These important features ("Term in Months", "Total BRR") are highlighted in the above visualizations. The classifier is also used to generate predictions for `1 - Working` and `2 - Best Case` opportunities. These probabilities are used to color the opportunities on our map.
 
 The visualizations chosen addressed the requirements of the project in terms of diversity of visualization types:
-* Spatial and non-spatial: our second and third visualizations are spatial, and other visualizations are non-spatial
-* Merged attributes across multiple CSVs: 
+1. Spatial and non-spatial: our second and third visualizations are spatial, and other visualizations are non-spatial
+2. Merged attributes across multiple CSVs: 
 ⋅⋅* `Building ID` was merged across `ZayoHackathonData_Opportunities.csv` and `ZayoHackathonData_Buildings.csv` to associate `Latitude` and `Longitude` with an `Opportunity ID`, 
 ⋅⋅* `Opportunity ID` was merged across `ZayoHackathonData_Opportunities.csv`, 
 ⋅⋅* `ZayoHackathonData_Buildings.csv`, `ZayoHackathonData_CPQs.csv`, and `ZayoHackathonData_Accounts.csv`
-* Over five different attributes: `City`, `State`, `Latitude`, `Longitude`, `Term In Months`, `StageName`, `Total BRR` + some derived features (percentage of open opportunities by city, prediction probability)
+3. Over five different attributes: `City`, `State`, `Latitude`, `Longitude`, `Term In Months`, `StageName`, `Total BRR` + some derived features (percentage of open opportunities by city, prediction probability)
 
 More specifically, we chose each of the visualization types we did:
 1. To explain important features in distinguishing won from lost opportunities. A tree was a natural choice, since the algorithm generates several decision trees. A bar chart was chosen to display feature importances. The y-scale on the bar chart was ommitted since we only care about the ranking of features.
