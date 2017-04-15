@@ -4,7 +4,7 @@
 
 <h3>Information About Visualizations</h3>
 
-In order to help Zayo better identify which market (Denver, Atlanta, or Dallas) they should expand their services to, we created four visualizations:
+In order to help Zayo better identify which market (Denver, Atlanta, or Dallas) they should expand their services to, we created five visualizations:
 1. Introduction to random forest classifier. Bar chart displaying feature importances changes color and has a tooltip displaying the label.
 2. Hierarchical bubble chart for viewing percentage of open opportunities in each state and city. Clicking on a state bubble will zoom in on collection of cities. Tooltip displays city, number of opportunities, and percent of open opportunities. 
 3. Map of all opportunities in each city, color-coded by our prediction that an opportunity will close. Clicking on a state will zoom in on that state. Tooltip displays our prediction this opportunity will close.
@@ -17,14 +17,17 @@ Before settling on these visualizations, we build a random forest classifier to 
 
 The visualizations chosen addressed the requirements of the project in terms of diversity of visualization types:
 * Spatial and non-spatial: our second and third visualizations are spatial, and other visualizations are non-spatial
-* Merged attributes across multiple CSVs: `Building ID` was merged across `ZayoHackathonData_Opportunities.csv` and `ZayoHackathonData_Buildings.csv` to associate `Latitude` and `Longitude` with an `Opportunity ID`, `Opportunity ID` was merged across `ZayoHackathonData_Opportunities.csv`, `ZayoHackathonData_Buildings.csv`, `ZayoHackathonData_CPQs.csv`, and `ZayoHackathonData_Accounts.csv`
+* Merged attributes across multiple CSVs: 
+..* `Building ID` was merged across `ZayoHackathonData_Opportunities.csv` and `ZayoHackathonData_Buildings.csv` to associate `Latitude` and `Longitude` with an `Opportunity ID`, 
+..* `Opportunity ID` was merged across `ZayoHackathonData_Opportunities.csv`, 
+..* `ZayoHackathonData_Buildings.csv`, `ZayoHackathonData_CPQs.csv`, and `ZayoHackathonData_Accounts.csv`
 * Over five different attributes: `City`, `State`, `Latitude`, `Longitude`, `Term In Months`, `StageName`, `Total BRR` + some derived features (percentage of open opportunities by city, prediction probability)
 
 More specifically, we chose each of the visualization types we did:
 1. To explain important features in distinguishing won from lost opportunities. A tree was a natural choice, since the algorithm generates several decision trees. A bar chart was chosen to display feature importances. The y-scale on the bar chart was ommitted since we only care about the ranking of features.
 2. To give a more general overview of open opportunities. A bubble chart was chosen because of the natural hierarchy between cities and states.
 3. To show how opportunities are distributed across the United States. Since the data is spatial, a map seemed to make the most sense.
-4. To describe how much won, lost, or potential money is in each state. A bar chart was the most obvious way of representing this data to us.
+4. To describe how much won, lost, or potential money is in each state. A bar chart seemed to be the most obvious way of representing this data.
 5. To show a detailed view of contract length by opportunities won and lost. A bar chart is a natural way to represent distributions.
 
 <h4>Above & Beyond</h4>
