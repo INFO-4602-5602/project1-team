@@ -28,7 +28,7 @@ function main_code() {
         var stackedBarDom = document.createElement('div');
         stackedBarDom.id = 'stackeBarChart';
         document.getElementById("StackedBars").appendChild(stackedBarDom);
-        d3.csv("ZayoHackathonData_Opportunities.csv", function(data) {
+        d3.csv("../../../lib/data/ZayoHackathonData_Opportunities.csv", function(data) {
 
         var maxContractLength = d3.max(data, function(d) {
             return parseFloat(d['Term in Months']);
