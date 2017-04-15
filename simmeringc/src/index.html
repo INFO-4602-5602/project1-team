@@ -94,8 +94,37 @@ svg.selectAll("circle")
 		return Math.sqrt(1);
 	})
 	.style("fill", function (d) {
-    console.log(d.IsCommittedProbability);
-    var hue=((1-d.IsCommittedProbability)*120).toString(10);
+    var hue;
+    switch (d.StageName) {
+
+      case "1 - Working":
+        hue=((1-0.6)*120).toString(10);
+        break;
+
+      case "2 - Best Case":
+        hue=((1-0.3)*120).toString(10);
+        break;
+
+      case "3 - Committed":
+        hue=((1-0.2)*120).toString(10);
+        break;
+
+      case "4 - Closed":
+        hue=((1-0.7)*120).toString(10);
+        break;
+
+      case "5 - Accepted":
+        hue=((1-0)*120).toString(10);
+        break;
+
+      case "Closed - Lost":
+        hue=((1-1)*120).toString(10);
+        break;
+
+      default:
+        hue=((1-d.IsCommittedProbability)*120).toString(10);
+        break;
+    }
     return ["hsl(",hue,",100%,50%)"].join("");
   })
 	.style("opacity", 0.85)
