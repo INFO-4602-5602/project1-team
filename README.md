@@ -19,8 +19,7 @@ The visualizations chosen addressed the requirements of the project in terms of 
 1. Spatial and non-spatial: our second and third visualizations are spatial, and other visualizations are non-spatial
 2. Merged attributes across multiple CSVs: 
   * `Building ID` was merged across `ZayoHackathonData_Opportunities.csv` and `ZayoHackathonData_Buildings.csv` to associate `Latitude` and `Longitude` with an `Opportunity ID`, 
-  * `Opportunity ID` was merged across `ZayoHackathonData_Opportunities.csv`, 
-  * `ZayoHackathonData_Buildings.csv`, `ZayoHackathonData_CPQs.csv`, and `ZayoHackathonData_Accounts.csv`
+  * `Opportunity ID` was merged across `ZayoHackathonData_Opportunities.csv`, `ZayoHackathonData_Buildings.csv`, `ZayoHackathonData_CPQs.csv`, and `ZayoHackathonData_Accounts.csv`
 3. Over five different attributes: `City`, `State`, `Latitude`, `Longitude`, `Term In Months`, `StageName`, `Total BRR` + some derived features (percentage of open opportunities by city, prediction probability)
 
 More specifically, we chose each of the visualization types we did:
