@@ -1,82 +1,45 @@
-# Project1
-<h2>Project 1:</h2>
-Due 4.14.2017 by 11:59pm through GitHub Classroom 
-Projects may be submitted up to 3 days late, with a 10% penalty per day.
-
-<h2>Running the Project</h2>
-1) Install node globally if you don't have it.
-2) Run <code>node node_modules\http-server\bin\http-server</code> OR <code>node node_modules/http-server/bin/http-server</code>
-3) Navigate to http://127.0.0.1:8080
-
-LET ME (MATT) KNOW IF THIS DOESN'T WORK 
+# Project1 Readme
 
 <h2>Overview: </h2>
-You've been provided consumer data by Zayo. They simply want to understand what's going on in all of this data! Your goal is to create a series of interactive visualizations that can be used to explore different aspects of this data.
 
-This repository contains five datasets that reflect a subset of this data. You will use a combination of these datasets to build these tools. All code created as part of this project will remain yours to share as you see fit. None will be provided to Zayo without your express consent.
+<h3>Information About Visualizations</h3>
 
-<h2>Minimum Requirements:</h2> 
-Your project must:
-<ul>
-<li> Include a README.md file that outlines:
-  <ul>
-  <li>Information about your visualizations and what they show. Include information about interactions as appropriate.</li>
-  <li>Your design process (e.g., how did you go about designing, building, and refining your system? Why did you choose these representations?)</li>
-  <li>Your team roles for each individual</li>
-  <li>How to run your project</li></ul></li>
-<li>Include at least three unique visualizations:
-  <ul>
-  <li>One visualization must be spatial (e.g., a map or plot that leverages geospatial information in some way)</li>
-  <li>One visualization must be non-spatial (e.g., a timeline, histogram, etc.)</li>
-  <li>Each visualization must be interactive</li>
-  <li>Your set of three visualizations should contain at least one data attribute from two different sheets</li>
-  <li>Your set of three visualizations should visualize at least five data attributes total</li></ul></li>
-<li>Be able to work with any dataset of this format (e.g., the numbers are interchangable but the columns and document titles are fixed).</li>
-</ul>
+In order to help Zayo better identify which market (Denver, Atlanta, or Dallas) they should expand their services to, we created four visualizations:
+1. Introduction to random forest classifier. Bar chart displaying feature importances changes color and has a tooltip displaying the label.
+2. Hierarchical bubble chart for viewing percentage of open opportunities in each state and city. Clicking on a state bubble will zoom in on collection of cities. Tooltip displays city, number of opportunities, and percent of open opportunities. 
+3. Map of all opportunities in each city, color-coded by our prediction that an opportunity will close. Clicking on a state will zoom in on that state. Tooltip displays our prediction this opportunity will close.
+4. Bar chart for displaying aggregate amount of monthly recurring revenue ("Total BRR") for each state, broken down by opportunity stage. Dropdown menu for filtering results by stage of opportunity.
+5. Distribution of contract lengths ("Term in Months").
 
-<h2>Above and Beyond:</h2> 
-The above requirements are the minimum for a passing grade on this project. Some ideas to improve your project include:<ul>
-  <li>Dashboarding: Show all three visualizations as part of the same screen.</li>
-<li>Added Visualizations: Provide more than three visualizations</li>
-<li>Dynamic Queries: Including UI widgets that allow you to change the current data field</li>
-<li>Missing Data: Not all rows have data for all columns. Design ways of handling missing data intelligently.</li>
-<li>Coordinated Views: Have two or more visualizations that interact with one another as you move through the data.</li>
-<li>Overview+Detail: Provide a pair of views that allow viewers to retain context as they navigate your data.</li>
-<li>Style: Keep the style consistent across all your views, with an eye towards intelligently applying visual design.</li></ul>
+<h3>Design Process</h3>
 
-<h2>Platforms:</h2> 
-You can use any development platform you'd like so long as it is not proprietary (exception: MatLab as we have a University License). Please do not use WYSIWYG tools for your final submission (you're welcome to do so for prototyping). Your project readme should include step-by-step instructions on how to run your projects and it should run without me having to modify the code. You are welcome to use different platforms for each visualization.
+Before settling on these visualizations, we build a random forest classifier to identify key features distinguishing won from lost opportunities. These important features ("Term in Months", "Total BRR") are highlighted in the above visualizations. The classifier is also used to generate predictions for `1 - Working` and `2 - Best Case` opportunities. These probabilities are used to color the opportunities on our map.
 
-Some platforms to look at include:
-<ul>
-<li>D3</li>
-<li>R with ggplot</li>
-<li>WebGL or Three.js</li>
-<li>Processing or ProcessingJS</li>
-<li>Google Maps API</li>
-<li>Open Street Map API</li>
-</ul>
+The visualizations chosen addressed the requirements of the project in terms of diversity of visualization types:
+* Spatial and non-spatial: our second and third visualizations are spatial, and other visualizations are non-spatial
+* Merged attributes across multiple CSVs: `Building ID` was merged across `ZayoHackathonData_Opportunities.csv` and `ZayoHackathonData_Buildings.csv` to associate `Latitude` and `Longitude` with an `Opportunity ID`, `Opportunity ID` was merged across `ZayoHackathonData_Opportunities.csv`, `ZayoHackathonData_Buildings.csv`, `ZayoHackathonData_CPQs.csv`, and `ZayoHackathonData_Accounts.csv`
+* Over five different attributes: `City`, `State`, `Latitude`, `Longitude`, `Term In Months`, `StageName`, `Total BRR` + some derived features (percentage of open opportunities by city, prediction probability)
 
-<h2>Submissions:</h2>
-All submissions must be made through GitHub with a timestamp by 11:59pm on 4.14. Your submission files should include:
-<ul>
-<li>Your README</li>
-<li>Your code</li>
-</ul>
+More specifically, we chose each of the visualization types we did:
+1. To explain important features in distinguishing won from lost opportunities. A tree was a natural choice, since the algorithm generates several decision trees. A bar chart was chosen to display feature importances. The y-scale on the bar chart was ommitted since we only care about the ranking of features.
+2. To give a more general overview of open opportunities. A bubble chart was chosen because of the natural hierarchy between cities and states.
+3. To show how opportunities are distributed across the United States. Since the data is spatial, a map seemed to make the most sense.
+4. To describe how much won, lost, or potential money is in each state. A bar chart was the most obvious way of representing this data to us.
+5. To show a detailed view of contract length by opportunities won and lost. A bar chart is a natural way to represent distributions.
 
-Each member of the team should also send me a project post-mortem through email documenting the following:
-* What you worked on in the project
-* What your teammates worked on in the project
-* How you would rate your performance and why
-* How you would rate each teammates' performance and why
+<h4>Above & Beyond</h4>
 
-These documents will be kept confidential and will factor into project grades. If you feel all of the team worked hard and performed well, please don't hesitate to tell me that (no curving is necessary on performance reviews :-))! Also, please keep in mind that different team members have different skillsets, roles, and experiences.
+We attempted a few improvements beyond the minimum requirements: `Dashboarding`, `Added Visualizations`, `Dynamic Queries` (drop-down to filter by `StageName` in our fourth visualization), `Missing Data` (handled in our pre-processing Python script), and `Style` (consistent colors and fonts across all visualization, drawn from Zayo's website).
 
-<h2>Grading: </h2>
-The project will be scored out of 100 points total. Your project will be graded on four different criteria:
-<ol>
-<li> Creativity</li>
-<li> Technical execution</li>
-<li> Design (both aesthetic and your visualization choices)</li>
-<li> Project Post-Mortems</li>
-</ol>
+<h3>Team Roles</h3>
+
+* **Zanqing Feng**: Creating our fourth visualization
+* **Sam Molnar**: Creating our second visualization, Making the python scripts for pre-processing our data, Protyping
+* **Allie Morgan**: Created our first visualization, Protyping, Making README
+* **Conner Simmering**: Created our third visualization, Picking a dashboard for all of our visualizations to fit into, Protyping
+* **Matt Whitlock**: Created our fifth visualization, Protyping
+
+<h3>How to Run our Visualization</h3>
+
+Navigate to `src/client` and run `python -m SimpleHTTPServer`.
+
