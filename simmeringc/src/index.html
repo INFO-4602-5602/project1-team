@@ -8,7 +8,7 @@
 div.tooltip {
  	position: absolute;
 	text-align: center;
-	width: 60px;
+	width: 80px;
 	height: 28px;
 	padding: 2px;
 	font: 12px sans-serif;
@@ -16,9 +16,6 @@ div.tooltip {
 	border: 0px;
 	border-radius: 8px;
 	pointer-events: none;
-}
-#states .active {
-  fill: #39FF14;
 }
 path:hover {
 	fill-opacity: .7;
@@ -79,6 +76,8 @@ svg.selectAll("path")
 	.append("path")
 	.attr("d", path);
 
+
+
 d3.csv("ZayoHackathonData_Opportunities.csv", function(data) {
 
 svg.selectAll("circle")
@@ -94,14 +93,18 @@ svg.selectAll("circle")
 	.attr("r", function(d) {
 		return Math.sqrt(1);
 	})
-		.style("fill", "rgb(217,91,67)")
-		.style("opacity", 0.85)
+	.style("fill", function (d) {
+    console.log(d.IsCommittedProbability);
+    var hue=((1-d.IsCommittedProbability)*120).toString(10);
+    return ["hsl(",hue,",100%,50%)"].join("");
+  })
+	.style("opacity", 0.85)
 
 	.on("mouseover", function(d) {
     	div.transition()
       	   .duration(200)
            .style("opacity", .9);
-           div.text(d.place)
+           div.text(d["Account ID"])
            .style("left", (d3.event.pageX) + "px")
            .style("top", (d3.event.pageY - 28) + "px");
 	})
