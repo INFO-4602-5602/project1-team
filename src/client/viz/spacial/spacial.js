@@ -50,7 +50,7 @@ svg.selectAll("path")
 
 
 
-d3.csv("../../lib/data/ZayoHackathonData_Opportunities.csv", function(data) {
+d3.csv("../../../lib/data/ZayoHackathonData_Opportunities.csv", function(data) {
 
 svg.selectAll("circle")
 	.data(data)
