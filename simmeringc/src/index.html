@@ -76,6 +76,8 @@ svg.selectAll("path")
 	.append("path")
 	.attr("d", path);
 
+
+
 d3.csv("ZayoHackathonData_Opportunities.csv", function(data) {
 
 svg.selectAll("circle")
@@ -91,8 +93,12 @@ svg.selectAll("circle")
 	.attr("r", function(d) {
 		return Math.sqrt(1);
 	})
-		.style("fill", "rgb(217,91,67)")
-		.style("opacity", 0.85)
+	.style("fill", function (d) {
+    console.log(d.IsCommittedProbability);
+    var hue=((1-d.IsCommittedProbability)*120).toString(10);
+    return ["hsl(",hue,",100%,50%)"].join("");
+  })
+	.style("opacity", 0.85)
 
 	.on("mouseover", function(d) {
     	div.transition()
