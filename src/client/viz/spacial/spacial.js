@@ -50,7 +50,7 @@ svg.selectAll("path")
 
 
 
-d3.csv("../../../lib/data/ZayoHackathonData_Opportunities.csv", function(data) {
+d3.csv("../../../lib/data/opps_preds.csv", function(data) {
 
 svg.selectAll("circle")
 	.data(data)
@@ -105,9 +105,10 @@ svg.selectAll("circle")
     	div.transition()
       	   .duration(200)
            .style("opacity", .9);
-           div.text(d["Account ID"])
+           div.html(d["Account ID"] + "<br/>" + "Success %: " + d.Prediction +
+					 "<br/>" + "Total BRR: " + d["Total BRR"])
            .style("left", (d3.event.pageX) + "px")
-           .style("top", (d3.event.pageY - 28) + "px");
+           .style("top", (d3.event.pageY - 68) + "px")
 	})
     // fade out tooltip on mouse out
     .on("mouseout", function(d) {
