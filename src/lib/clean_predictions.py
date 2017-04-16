@@ -11,8 +11,7 @@ import json
 accts = pd.read_csv("data/ZayoHackathonData_Accounts.csv",names=["Account ID","Industry","Vertical","Total BRR","AnnualRevenue","NumberOfEmployees","DandB Revenue","DandB Total Employees"])
 cpqs = pd.read_csv("data/ZayoHackathonData_CPQs.csv",names=["CPQ ID","Account ID","CreatedDate","Product Group","X36 MRC List","X36 NRR List","X36 NPV List","Building ID","Market","Street Address","City","State","Postal Code","Network Proximity","On Zayo Network Status"])
 opps = pd.read_csv("data/ZayoHackathonData_Opportunities.csv",names=["index","Opportunity ID","Account ID","StageName","IsClosed","IsWon","CreatedDate","Term in Months","Service","Opportunity Type","Product Group","Building ID","Market","Street Address","City","State","Postal Code","Network Proximity","On Zayo Network Status","Latitude","Longitude"],skiprows=1)
-bldgs = pd.read_csv("data/ZayoHackathonData_Buildings.csv",names=["Building ID","Market","Street Address","City","State","Postal Code","Latitude","Longitude","On Zayo Network Status","Net Classification","Type","Network Proximity","Estimated Build Cost"])
-
+bldgs = pd.read_csv("data/ZayoHackathonData_Buildings.csv",names=["Building ID","Market","Street Address","City","State","Postal Code","Latitude","Longitude","On Zayo Network Status","Net Classification","Building Type","Network Proximity","Estimated Build Cost"])
 
 def output_bubbles_json():
     data={"name":"U.S.","children":[],"size":0,"perc":""}
@@ -63,10 +62,6 @@ def label_encoder():  # only run if absolutely necessary lol
     global to_predict
     global features
     print "Encoding labels..."
-
-    
-    
-    
     
     from sklearn import preprocessing
 
@@ -76,29 +71,32 @@ def label_encoder():  # only run if absolutely necessary lol
     # understanding later.
 
     le = {}
-
     for feature in features:
-        print feature
-
         le[feature] = preprocessing.LabelEncoder()
+
+        if opp[feature].dtype == np.dtype(np.float64):
+            # We only need to encode strings
+            continue
+
         le[feature].fit(pd.concat([opp[feature], to_predict[feature]]))
+        
         index = opp.index.values
         for row in index:
             
             v=le[feature].transform([opp[feature][int(row)]])[0]
             opp.set_value(int(row),feature,v)
+
         index = to_predict.index.values
         for row in index:
             v=le[feature].transform([to_predict[feature][int(row)]])[0]
             to_predict.set_value(int(row),feature,v)
         
         
-
     with open('data/label_encoding.p', 'wb') as handle:
         pickle.dump(le, handle)
 
-def make_classifier():
-    print "Building Classifier"
+def make_classifier(print_importances=False):
+    print "Building classifier"
     global features
     global prediction
     global opp
@@ -111,11 +109,53 @@ def make_classifier():
     trainX = shuffled[features][:int(round(fraction*len(shuffled)))].values
     trainY = shuffled[prediction][:int(round(fraction*len(shuffled)))].values
     
-    
     clf = clf.fit(trainX, trainY)
     with open('data/clf.p', 'wb') as handle:
         pickle.dump(clf, handle)
 
+    if print_importances:
+        importances = clf.feature_importances_
+        std = np.std([tree.feature_importances_ for tree in clf.estimators_], axis=0)
+        indices = np.argsort(importances)[::-1]
+
+        print("Feature ranking:")
+        for f in range(opp[features].shape[1]):
+            print("%d.\tfeature %d\t(%f, %s)" % (f + 1, indices[f], importances[indices[f]], opp[features].columns[indices[f]].strip()))
+
+def print_tree():
+    print "Printing tree"
+    global features
+    from sklearn import tree
+
+    from IPython.display import Image  
+    import pydotplus
+
+    with open('data/clf.p', 'rb') as handle:
+        clf = pickle.load(handle)
+
+    dot_data = tree.export_graphviz(clf.estimators_[0], out_file='data/tree.dot', impurity=False, filled=True, rounded=True, max_depth=3, class_names=['Is Not Committed', 'Is Committed'], special_characters=True, feature_names= features)  
+
+def test_classifier():
+    print "Testing classifier"
+    global features
+    global prediction
+    global opp
+
+    from sklearn import ensemble
+
+    shuffled = opp.sample(frac=1)
+    clf = ensemble.RandomForestClassifier()
+    fraction = 9.0/10.0
+
+    trainX = shuffled[features][:int(round(fraction*len(shuffled)))].values
+    trainY = shuffled[prediction][:int(round(fraction*len(shuffled)))].values
+    
+    clf = clf.fit(trainX, trainY)
+
+    testX = shuffled[features][int(round(fraction*len(shuffled))):].values
+    testY = shuffled[prediction][int(round(fraction*len(shuffled))):].values
+    
+    print(clf.score(testX, testY))
 
 def merge_clean_data():
     global bldgs
@@ -124,15 +164,12 @@ def merge_clean_data():
     print "Cleaning and merging data..."
     #global opp_filtered
     
-    # merge on different tables
-
-
-    
+    # merge on different tables    
     opps["DandB Total Employees"]=pd.Series(dtype=int)
     opps["Latitude"] = pd.Series(dtype=float)
     opps["Longitude"] = pd.Series(dtype=float)
     opps['Net Classification']=pd.Series(dtype=str)
-    opps['Type']=pd.Series(dtype=str)
+    opps['Building Type']=pd.Series(dtype=str)
     opps["Estimated Build Cost"]=pd.Series(dtype=float)
     opps['X36 MRC List']=pd.Series(dtype=float)
     opps['X36 NRR List']=pd.Series(dtype=float)
@@ -149,7 +186,7 @@ def merge_clean_data():
         b = opps["Building ID"][i]
         n1 = list(accts[accts["Account ID"]==a]["DandB Total Employees"])
         n2 = list(bldgs[bldgs["Building ID"]==b]["Net Classification"])
-        n3 = list(bldgs[bldgs["Building ID"]==b]["Type"])
+        n3 = list(bldgs[bldgs["Building ID"]==b]["Building Type"])
         n4 = list(bldgs[bldgs["Building ID"]==b]["Estimated Build Cost"])
         
         n5 = list(cpqs[cpqs["Account ID"]==a]["X36 MRC List"])
@@ -176,9 +213,9 @@ def merge_clean_data():
             opps.set_value(i,"Net Classification",'unknown')
 
         if len(n3)==1:
-            opps.set_value(i,"Type",n3[0])
+            opps.set_value(i,"Building Type",n3[0])
         else:
-            opps.set_value(i,"Type",'unknown')
+            opps.set_value(i,"Building Type",'unknown')
 
         if len(n4)==1:
             n4 = re.sub('[\$,]','',n4[0])
@@ -267,17 +304,20 @@ def merge_clean_data():
                 opps.set_value(i,"Longitude",float(n14[0]))
         else:
             opps.set_value(i,"Longitude",0)
+        
         if np.isnan(opps["Network Proximity"][i]):
             opps.set_value(i,"Network Proximity",-1)
+        
         if type(opps["Opportunity Type"][i])==float:
             opps.set_value(i,"Opportunity Type","unknown")
+        
         if np.isnan(float(opps["Term in Months"][i])):
             opps.set_value(i,"Term in Months",-1)
         else:
             opps.set_value(i,"Term in Months",float(opps["Term in Months"][i]))
+
     opps.to_csv("data/concat_data.csv")
 
-    
 
 def make_prediction():
     with open('data/clf.p', 'rb') as handle:
@@ -297,33 +337,29 @@ def make_prediction():
     
 
 
-
-
-
-
-
-
-
 output_bubbles_json()
-#opps=pd.read_csv("data/concat_data.csv")
+#opps = pd.read_csv("data/concat_data.csv")
 merge_clean_data()
 
 opp = opps[(opps["StageName"] == "3 - Committed") | (opps['StageName'] == "4 - Closed") | (opps['StageName'] == "5 - Accepted") | (opps['StageName'] == "Closed - Lost")].copy()
-
 to_predict = opps[(opps["StageName"] == "1 - Working") | (opps['StageName'] ==" 2 - Best Case")].copy()
+
 opp['IsCommitted'] = pd.Series(dtype=int)
 for i in opp.index.values:
     if opp["StageName"][i] in ["3 - Committed", "4 - Closed", "5 - Accepted"]:
-        opp.set_value(i,"IsCommitted",1)
+        opp.set_value(i, "IsCommitted", 1)
     else:
-        opp.set_value(i,"IsCommitted",0)
-features = opp.columns.difference([u'IsCommitted',"Opportunity ID", "Account ID","StageName", "IsClosed", "IsWon","CreatedDate",'Building ID',"index","Service","Unnamed: 0","Street Address"])
+        opp.set_value(i, "IsCommitted", 0)
+
+features = opp.columns.difference([u'IsCommitted',"Opportunity ID", "Account ID","StageName", "IsClosed", "IsWon","CreatedDate",'Building ID',"index","Service","Unnamed: 0","Street Address", "Longitude", "Latitude", "DandB Total Employees"])
 prediction = [u'IsCommitted']
+
 label_encoder()
-make_classifier()
+#test_classifier()
+make_classifier(print_importances=False)
+#print_tree()
 opps["Prediction"]=pd.Series()
 make_prediction()
-
 
 opps.to_csv("data/opps_preds.csv")
 
