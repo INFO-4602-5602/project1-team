@@ -8,8 +8,8 @@ In order to help Zayo better identify which market (Denver, Atlanta, or Dallas) 
 1. Introduction to random forest classifier. Bar chart displaying feature importances changes color and has a tooltip displaying the label.
 2. Hierarchical bubble chart for viewing percentage of open opportunities in each state and city. Clicking on a state bubble will zoom in on collection of cities. Tooltip displays city, number of opportunities, and percent of open opportunities. 
 3. Map of all opportunities in each city, color-coded by our prediction that an opportunity will close. Clicking on a state will zoom in on that state. Tooltip displays our prediction this opportunity will close.
-4. Bar chart for displaying aggregate amount of monthly recurring revenue (`Total BRR`) for each state, broken down by opportunity stage. Dropdown menu for filtering results by stage of opportunity.
-5. Distribution of contract lengths (`Term in Months`).
+4. Distribution of contract lengths (`Term in Months`).
+5. Bar chart for displaying aggregate amount of monthly recurring revenue (`Total BRR`) for each state, broken down by opportunity stage. Dropdown menu for filtering results by stage of opportunity.
 
 <h3>Design Process</h3>
 
@@ -26,8 +26,8 @@ More specifically, we chose each of the visualization types we did:
 1. To explain important features in distinguishing won from lost opportunities. A tree was a natural choice, since the algorithm generates several decision trees. A bar chart was chosen to display feature importances. The y-scale on the bar chart was ommitted since we only care about the ranking of features.
 2. To give a more general overview of open opportunities. A bubble chart was chosen because of the natural hierarchy between cities and states.
 3. To show how opportunities are distributed across the United States. Since the data is spatial, a map seemed to make the most sense.
-4. To describe how much won, lost, or potential money is in each state. A bar chart seemed to be the most obvious way of representing this data.
-5. To show a detailed view of contract length by opportunities won and lost. A bar chart is a natural way to represent distributions.
+4. To show a detailed view of contract length by opportunities won and lost. A bar chart is a natural way to represent distributions.
+5. To describe how much won, lost, or potential money is in each state. A bar chart seemed to be the most obvious way of representing this data.
 
 <h4>Above & Beyond</h4>
 
@@ -35,11 +35,11 @@ We attempted a few improvements beyond the minimum requirements: `Dashboarding`,
 
 <h3>Team Roles</h3>
 
-* **Zanqing Feng**: Creating our fourth visualization
-* **Sam Molnar**: Creating our second visualization, Making the python scripts for pre-processing our data, Protyping
-* **Allie Morgan**: Created our first visualization, Protyping, Making README
-* **Conner Simmering**: Created our third visualization, Picking a dashboard for all of our visualizations to fit into, Protyping
-* **Matt Whitlock**: Created our fifth visualization, Protyping
+* **Zanqing Feng**: Creating our bar chart of `Total BRR` and `Annual Revenue` visualization
+* **Sam Molnar**: Creating our bubble chart visualization, Making the python scripts for pre-processing our data, Protyping
+* **Allie Morgan**: Created our random forest visualization, Protyping, Making README
+* **Conner Simmering**: Created our map visualization, Picking a dashboard for all of our visualizations to fit into, Protyping
+* **Matt Whitlock**: Created our distribution of contract length visualization, Protyping
 
 <h3>How to Run our Visualization</h3>
 
