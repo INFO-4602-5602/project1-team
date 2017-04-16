@@ -14,13 +14,13 @@
   stroke-width: 1.5px;*/
 }
 body{
-	font-family: "Lucida Sans Unicode", "Lucida Grande", "sans-serif";
+	font-family: 'Titillium Web', sans-serif;
 	font-style: normal;
 }
 
 .label {
   font-size: 30px;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", "sans-serif";
+  font-family: 'Titillium Web', sans-serif;
   text-anchor: middle;
   color: #0080BB;
   
@@ -30,19 +30,19 @@ body{
 .node--root,
 .node--leaf {
   font-size: 12px;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", "sans-serif";
+  font-family: 'Titillium Web', sans-serif;
   text-anchor: middle;
   color: #0080BB;
 }
 
 
 .legend{
-	font-family: "Lucida Sans Unicode", "Lucida Grande", "sans-serif";
+	font-family: 'Titillium Web', sans-serif;
 	font-style: normal;
 }
 
 .toolTip {
-  font-family: "Lucida Sans Unicode", "Lucida Grande", "sans-serif";
+  font-family: 'Titillium Web', sans-serif;
   position: absolute;
   display: none;
   min-width: 80px;

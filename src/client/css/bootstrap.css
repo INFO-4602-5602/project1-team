@@ -12,6 +12,7 @@ html {
 }
 body {
   margin: 0;
+  font-family: 'Titillium Web', sans-serif;
 }
 article,
 aside,
@@ -26,6 +27,7 @@ menu,
 nav,
 section,
 summary {
+  font-family: 'Titillium Web', sans-serif;
   display: block;
 }
 audio,
