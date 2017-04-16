@@ -43,5 +43,5 @@ We attempted a few improvements beyond the minimum requirements: `Dashboarding`,
 
 <h3>How to Run our Visualization</h3>
 
-Navigate to `src/client` and run `python -m SimpleHTTPServer`.
+Navigate to `src` and run `python -m SimpleHTTPServer`.
 
