@@ -1,10 +1,11 @@
 div.tooltip {
  	position: absolute;
 	text-align: center;
-	width: 80px;
-	height: 28px;
+	width: 100px;
+	height: 60px;
 	padding: 2px;
-	font: 12px sans-serif;
+  font-family: 'Titillium Web', sans-serif;
+	font-size: 12px;
 	background: white;
 	border: 0px;
 	border-radius: 8px;
@@ -13,4 +14,8 @@ div.tooltip {
 
 path:hover {
 	fill-opacity: .7;
+}
+
+body {
+  font-family: 'Titillium Web', sans-serif;
 }
