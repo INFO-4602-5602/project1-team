@@ -13,7 +13,7 @@ cpqs = pd.read_csv("data/ZayoHackathonData_CPQs.csv",names=["CPQ ID","Account ID
 opps = pd.read_csv("data/ZayoHackathonData_Opportunities.csv",names=["index","Opportunity ID","Account ID","StageName","IsClosed","IsWon","CreatedDate","Term in Months","Service","Opportunity Type","Product Group","Building ID","Market","Street Address","City","State","Postal Code","Network Proximity","On Zayo Network Status","Latitude","Longitude"],skiprows=1)
 bldgs = pd.read_csv("data/ZayoHackathonData_Buildings.csv",names=["Building ID","Market","Street Address","City","State","Postal Code","Latitude","Longitude","On Zayo Network Status","Net Classification","Building Type","Network Proximity","Estimated Build Cost"])
 
-def output_bubbles_json():
+def output_bubbles_json():  # this creates the necessary file for the circle packing vis
     data={"name":"U.S.","children":[],"size":0,"perc":""}
 
 
@@ -52,7 +52,7 @@ def output_bubbles_json():
     data["size"] = len(opps)
     data["perc"] = '{0:.2f}'.format(float(len(opps[(opps["StageName"]=="1 - Working") | (opps["StageName"]=="2 - Best Case")]))/float(len(opps)))
 
-    with open('data/result.json', 'wb') as fp:
+    with open('../viz/bubbles/result.json', 'wb') as fp:
         json.dump(data,fp)
 
 
