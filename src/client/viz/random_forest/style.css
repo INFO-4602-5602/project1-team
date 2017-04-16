@@ -1,5 +1,5 @@
 body {
-  font-family: "Lucida Sans Unicode", "Lucida Grande", "sans-serif";
+  font-family: 'Titillium Web', sans-serif;
   font-style: normal;
 }
 
@@ -18,7 +18,7 @@ ul li { padding: 5px 0px; }
 a { color: #f25f02 }
 
 img {
-  width: 100%;
+  width: 75%;
   height: auto;
 }
 

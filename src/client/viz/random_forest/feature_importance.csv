@@ -1,23 +1,21 @@
 x, featureName
-0.236202, Term in Months
-0.167972, On Zayo Network Status
-0.106356, Total BRR
-0.098174, Product Group_opp
-0.066883, Network Proximity
-0.065358, Postal Code
-0.055471, Estimated Build Cost
-0.050330, Type
-0.047667, City
-0.025769, X36 MRC List
-0.023935, X36 NPV List
-0.018622, X36 NRR List
-0.015084, Net Classification
-0.009289, Market
-0.006316, Opportunity Type
-0.005845, State
-0.000512, NumberOfEmployees
-0.000215, Vertical
-0.000000, DandB Total Employees
-0.000000, Industry
-0.000000, DandB Revenue
-0.000000, AnnualRevenue
+0.215878, Term in Months
+0.149624, Total BRR
+0.080931, NumberOfEmployees
+0.068991, AnnualRevenue
+0.067405, Vertical
+0.065372, Product Group
+0.062509, Network Proximity
+0.056396, Estimated Build Cost
+0.052959, Industry
+0.042941, Postal Code
+0.030729, Building Type
+0.026301, City
+0.014266, Net Classification
+0.012953, Opportunity Type
+0.011762, State
+0.011629, On Zayo Network Status
+0.008694, X36 MRC List
+0.008578, X36 NRR List
+0.008402, Market
+0.003679, X36 NPV List
