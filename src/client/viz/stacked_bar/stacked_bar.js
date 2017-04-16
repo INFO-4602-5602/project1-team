@@ -86,7 +86,7 @@ var margin = 0; // Margin around visualization
                         if (i == counts.length - 1) colorNumHeight++; return offsetConstant * counts[i]['Won'];}
                         else {return  offsetConstant * counts[i]['Lost'] ;}
                     })
-                    .attr("width", function(d) {console.log(d);return x(d.data.x1 - d.data.x1);});
+                    .attr("width", 50);
 
         // add the x Axis
         svg.append("g")
