@@ -43,5 +43,5 @@ We attempted a few improvements beyond the minimum requirements: `Dashboarding`,
 
 <h3>How to Run our Visualization</h3>
 
-To perform the data preprocessing, run the script `clean_predictions.py` in the `lib` folder.  "Navigate to `src` and run `python -m SimpleHTTPServer` to view our project.
+To perform the data preprocessing, run the script `clean_predictions.py` in the `lib` folder.  Navigate to `src` and run `python -m SimpleHTTPServer` to view our project.
 
