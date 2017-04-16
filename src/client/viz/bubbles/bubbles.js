@@ -62,6 +62,7 @@ var bar=g2.append("rect")
 		.text("100")
 
 d3.json("result.json", function(error, root) {
+
   if (error) throw error;
 
   root = d3.hierarchy(root)
@@ -82,7 +83,8 @@ var tooltip = d3.select("body").append("div").attr("class", "toolTip");
   var circle = g.selectAll("circle")
     .data(nodes)
     .enter().append("circle")
-      .attr("class", function(d) { return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
+      .attr("class", function(d) { 
+        return d.parent ? d.children ? "node" : "node node--leaf" : "node node--root"; })
       .style("fill", function(d) { return color(d.data.perc)})
       .on("click", function(d) { if (focus !== d & d.depth<2) zoom(d), d3.event.stopPropagation(); })
       .on("mousemove", function(d) {
@@ -112,10 +114,11 @@ var tooltip = d3.select("body").append("div").attr("class", "toolTip");
 
   zoomTo([root.x, root.y, root.r * 2 + margin]);
 
-
+  console.log(nodes[105])
   function zoom(d) {
+    
     var focus0 = focus; focus = d;
-
+    console.log(d);
     var transition = d3.transition()
         .duration(d3.event.altKey ? 7500 : 750)
         .tween("zoom", function(d) {
@@ -124,7 +127,15 @@ var tooltip = d3.select("body").append("div").attr("class", "toolTip");
         });
 
     transition.selectAll("text")
-      .filter(function(d) { return d.parent === focus || this.style.display === "inline"; })
+      .filter(function(e,i) { 
+        if(i<104){ //for some reason it goes farther than it needs to.  Temporary hack to make zoom work.
+
+          return e.parent==focus || this.style.display === "inline";
+        }
+        else{
+          return false;
+        }
+      })
         .style("fill-opacity", function(d) { return d.parent === focus ? 1 : 0; })
         .on("start", function(d) { if (d.parent === focus) this.style.display = "inline"; })
         .on("end", function(d) { if (d.parent !== focus) this.style.display = "none"; });
