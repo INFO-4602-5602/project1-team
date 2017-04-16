@@ -1,4 +1,5 @@
 div.tooltip {
+	font-family: 'Titillium Web', sans-serif;
  	position: absolute;
 	text-align: center;
 	width: 80px;
@@ -13,4 +14,8 @@ div.tooltip {
 
 path:hover {
 	fill-opacity: .7;
+}
+
+body {
+	font-family: 'Titillium Web', sans-serif;
 }
