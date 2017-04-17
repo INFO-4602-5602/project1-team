@@ -105,7 +105,7 @@ svg.selectAll("circle")
     	div.transition()
       	   .duration(200)
            .style("opacity", .9);
-           div.html(d["Account ID"] + "<br/>" + "Success %: " + d.Prediction +
+           div.html(d["Account ID"] + "<br/>" + "Success %: " + d.Prediction*100 +
 					 "<br/>" + "Total BRR: " + d["Total BRR"])
            .style("left", (d3.event.pageX) + "px")
            .style("top", (d3.event.pageY - 68) + "px")
