@@ -31,7 +31,7 @@ More specifically, we chose each of the visualization types we did:
 
 <h4>Above & Beyond</h4>
 
-We attempted a few improvements beyond the minimum requirements: `Dashboarding`, `Added Visualizations`, `Dynamic Queries` (drop-down to filter by `StageName` in our fourth visualization), `Missing Data` (handled in our pre-processing Python script), and `Style` (consistent colors and fonts across all visualization, drawn from Zayo's website).
+We attempted a few improvements beyond the minimum requirements: `Dashboarding`, `Added Visualizations`, `Dynamic Queries` (drop-down to filter by `StageName` in our fifth visualization), `Missing Data` (handled in our pre-processing Python script), and `Style` (consistent colors and fonts across all visualization, drawn from Zayo's website).
 
 <h3>Team Roles</h3>
 
