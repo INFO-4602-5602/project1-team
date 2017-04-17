@@ -222,7 +222,7 @@
 		}
 
 		function initMap(){
-			d3.tsv("../../../lib/data/ZayoHackathonData_Sites.csv",function(error,csvdata){  
+			d3.tsv("ZayoHackathonData_Sites.csv",function(error,csvdata){  
 				if(error){  
 					console.log(error);  
 				}  
@@ -235,7 +235,7 @@
 				
 				//for(var index in mapState)
 				//	console.log(index+"->"+mapState[index]);
-				d3.csv("../../../lib/data/ZayoHackathonData_Opportunities.csv",function(error,Oppdata){  
+				d3.csv("ZayoHackathonData_Opportunities.csv",function(error,Oppdata){  
 					if(error){  
 						console.log(error);  
 					}  
@@ -265,7 +265,7 @@
 			
 			StageName = document.getElementById("StageName").value; 
 
-			d3.csv("../../../lib/data/ZayoHackathonData_Accounts.csv",function(error,data){  
+			d3.csv("ZayoHackathonData_Accounts.csv",function(error,data){  
 				if(error){  
 					console.log(error);  
 				}  
