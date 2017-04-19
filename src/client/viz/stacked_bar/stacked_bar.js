@@ -42,7 +42,7 @@ function renderGraph() {
             var counts = new Array(13);
             var maxCount, offsetConstant;
 
-            for (i = 0; i < 13; i++) {
+            for (i = 0; i < bins.length; i++) {
                 counts[i] = new Object();
                 counts[i]['Won'] = 0;
                 counts[i]['Lost'] = 0;
@@ -51,10 +51,10 @@ function renderGraph() {
                 var term = parseFloat(element[sortableTerm]);
                 if (!isNaN(term)) {
                     if (element['IsWon'] === 'TRUE') {
-                        counts[Math.floor(element[sortableTerm] * 12 / maxContractLength)]['Won']++;
+                        counts[Math.floor(element[sortableTerm] * (bins.length - 1) / maxContractLength)]['Won']++;
                     }
                     else {
-                        counts[Math.floor(element[sortableTerm] * 12 / maxContractLength)]['Lost']++;
+                        counts[Math.floor(element[sortableTerm] * (bins.length - 1) / maxContractLength)]['Lost']++;
                     }
                 }
             });
@@ -176,7 +176,7 @@ function renderGraph() {
 
             var counts = new Array(8);
             var maxCount, offsetConstant;
-            for (i = 0; i < 8; i++) {
+            for (i = 0; i < bins.length; i++) {
                 counts[i] = new Object();
                 counts[i]['Won'] = 0;
                 counts[i]['Lost'] = 0;
@@ -185,10 +185,10 @@ function renderGraph() {
                 var term = parseFloat(element[sortableTerm]);
                 if (!isNaN(term)) {
                     if (element['IsWon'] === 'TRUE') {
-                        counts[Math.floor(element[sortableTerm] * 7 / maxProximity)]['Won']++;
+                        counts[Math.floor(element[sortableTerm] * (bins.length - 1) / maxProximity)]['Won']++;
                     }
                     else {
-                        counts[Math.floor(element[sortableTerm] * 7 / maxProximity)]['Lost']++;
+                        counts[Math.floor(element[sortableTerm] * (bins.length - 1) / maxProximity)]['Lost']++;
                     }
                 }
             });
