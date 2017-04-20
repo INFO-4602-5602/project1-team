@@ -14,10 +14,12 @@
 			.axis text {
 				font-family: 'Titillium Web', sans-serif;
 				font-size: 11px;
+				
 			}
 			.text text {
 				font-family: 'Titillium Web', sans-serif;
 				font-size: 14px;
+				
 			}
 		</style>
   </head>  
@@ -37,6 +39,7 @@
 		</form>
 	</div>
 	<script>
+		
 		String.prototype.replaceAll = function(s1,s2){
 	　　	return this.replace(new RegExp(s1,"gm"),s2);
 	　　}
@@ -73,6 +76,7 @@
 		var mapMonth = {};
 		var mapYear = {};
 		var mapStageName = {};
+		var stageSums = {};
 		
 		var mode = false;
 
@@ -199,6 +203,22 @@
 			  .attr("transform","translate(" + padding.left + "," + padding.top + ")")
 			  .attr('fill', "#0080BB")
 			  .call(yAxis);
+			g1=svg.append("g")
+    		.append("text")
+    		.text("Average $ Per Account")
+
+    		.attr("x",padding.left-400) 
+			.attr("y",padding.bottom+90)
+  			.attr("class","text")
+  			.attr("fill","#F25F02")
+  			.style("text-anchor", "middle")
+  			.attr("transform", "rotate(-90)");
+  			
+				
+		
+		
+		
+		
 
 			
 			svg.append("g") 
@@ -210,6 +230,7 @@
 					 return "Total BRR"
 			  }) 
 			 .attr("class","text") 
+			 .attr("fill","#F25F02")
 			 .attr("x",padding.left+100) 
 			 .attr("y",padding.top-15); 
 
@@ -220,8 +241,9 @@
 			for(var index in mapdata)
 			   mapdata[index]=0;
 		}
-
+		
 		function initMap(){
+			
 			d3.tsv("ZayoHackathonData_Sites.csv",function(error,csvdata){  
 				if(error){  
 					console.log(error);  
@@ -235,24 +257,65 @@
 				
 				//for(var index in mapState)
 				//	console.log(index+"->"+mapState[index]);
+				
 				d3.csv("ZayoHackathonData_Opportunities.csv",function(error,Oppdata){  
+					var work=0.;
+					var best=0.;
+					var comit=0.;
+					var closed=0.;
+					var accepted=0.;
+					var lost=0.;
 					if(error){  
 						console.log(error);  
 					}  
 					//console.log(csvdata);  
+					
 					for( var i=0; i<Oppdata.length; i++ ){  
 						var account = Oppdata[i]["Account ID"].replace(/(^\s+)|(\s+$)/g, ""); 
 						var StageName = Oppdata[i]["StageName"]; 
+						if(StageName==="1 - Working"){
+							work+=1;
+						}
+						else if(StageName==="2 - Best Case"){
+							best+=1;
+						}
+						else if(StageName==="3 - Committed"){
+							comit+=1;
+						}
+						else if(StageName==="4 - Closed"){
+							closed+=1;
+						}
+						else if(StageName==="5 - Accepted"){
+							accepted+=1;
+						}
+						else if(StageName==="Closed - Lost"){
+							lost+=1;
+						}
+						
 						
 						mapStageName[account]=StageName;
 						
 					}
+
+					stageSums["1 - Working"] = work;
+					stageSums["2 - Best Case"] = best;
+					stageSums["3 - Committed"] = comit;
+					stageSums["4 - Closed"] = closed;
+					stageSums["5 - Accepted"] = accepted;
+					stageSums["Closed - Lost"] = lost;
+					stageSums["All"] = work+best+comit+closed+accepted+lost;
+
 					//console.log(mapStageName);
 					//console.log(mapWon);
+
 					getData();
+
 				});
-			
+
+				
+		
 			});
+			
 		}
 					
 		
@@ -261,6 +324,7 @@
 			
 			clearMap(mapMonth);
 			clearMap(mapYear);
+			console.log(stageSums);
 				
 			
 			StageName = document.getElementById("StageName").value; 
@@ -293,28 +357,28 @@
 					
 					if(StageName == "All"){
 						if(state in mapMonth){
-						   mapMonth[state]=parseFloat(mapMonth[state])+parseFloat(brr);
+						   mapMonth[state]=parseFloat(mapMonth[state])+parseFloat(brr)/parseFloat(stageSums["All"]);
 						}else{
-						   mapMonth[state]=parseFloat(brr);
+						   mapMonth[state]=parseFloat(brr)/parseFloat(stageSums["All"]);
 						}
 						if(state in mapYear){
-						   mapYear[state]=parseFloat(mapYear[state])+parseFloat(annual);
+						   mapYear[state]=parseFloat(mapYear[state])+parseFloat(annual)/parseFloat(stageSums["All"]);
 						}else{
-						   mapYear[state]=parseFloat(annual);
+						   mapYear[state]=parseFloat(annual)/parseFloat(stageSums["All"]);
 						}
 						
 					}else if(typeof(mapStageName[account])!="undefined" && mapStageName[account] == StageName){
 						//console.log(mapStageName[account]); 
 						//console.log(mapWon[account]);
 						if(state in mapMonth){
-						   mapMonth[state]=parseFloat(mapMonth[state])+parseFloat(brr);
+						   mapMonth[state]=parseFloat(mapMonth[state])+parseFloat(brr)/parseFloat(stageSums[StageName]);
 						}else{
-						   mapMonth[state]=parseFloat(brr);
+						   mapMonth[state]=parseFloat(brr)/parseFloat(stageSums[StageName]);
 						}
 						if(state in mapYear){
-						   mapYear[state]=parseFloat(mapYear[state])+parseFloat(annual);
+						   mapYear[state]=parseFloat(mapYear[state])+parseFloat(annual)/parseFloat(stageSums[StageName]);
 						}else{
-						   mapYear[state]=parseFloat(annual);
+						   mapYear[state]=parseFloat(annual)/parseFloat(stageSums[StageName]);
 						}
 						
 					} 
