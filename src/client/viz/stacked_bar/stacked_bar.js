@@ -39,7 +39,7 @@ function renderGraph() {
             vals[0] = 'Lost';
             vals[1] = 'Won';
 
-            var counts = new Array(13);
+            var counts = new Array(bins.length);
             var maxCount, offsetConstant;
 
             for (i = 0; i < bins.length; i++) {
@@ -66,6 +66,7 @@ function renderGraph() {
                 .domain(colors);
             var colorNumY = 0;
             var colorNumHeight = 0;
+            var barWidth = Math.floor(w / bins.length);
 
             var stack = svg.append("g")
                 .selectAll("g")
@@ -87,7 +88,7 @@ function renderGraph() {
                             if (i == counts.length - 1) colorNumHeight++; return offsetConstant * counts[i]['Won'];}
                             else {return  offsetConstant * counts[i]['Lost'] ;}
                         })
-                        .attr("width", 50);
+                        .attr("width", barWidth);
 
             // add the x Axis
             svg.append("g")
@@ -174,7 +175,7 @@ function renderGraph() {
             vals[0] = 'Lost';
             vals[1] = 'Won';
 
-            var counts = new Array(8);
+            var counts = new Array(bins.length);
             var maxCount, offsetConstant;
             for (i = 0; i < bins.length; i++) {
                 counts[i] = new Object();
@@ -202,6 +203,7 @@ function renderGraph() {
             var colorNumX = 0;
             var colorNumY = 0;
             var colorNumHeight = 0;
+            var barWidth = Math.floor(w / (2 * bins.length));
 
             var stack = svg.append("g")
                 .selectAll("g") 
@@ -212,7 +214,7 @@ function renderGraph() {
                     .selectAll("rect")
                     .data(function(d, i) { return d; })
                     .enter().append("rect")
-                        .attr("x", function(d, i) {if (i == counts.length - 1) colorNumX++; return x(d.data.x0) + 45 * colorNumX;} )
+                        .attr("x", function(d, i) {if (i == counts.length - 1) colorNumX++; return x(d.data.x0) + barWidth * colorNumX;} )
                         .attr("y", function(d, i) { 
                             if (i >= counts.length) return h; 
                             else if(!colorNumY) {if (i == counts.length - 1) colorNumY++; if (!counts[i]['Won']) return 0; return y(counts[i]['Won']);}
@@ -224,7 +226,7 @@ function renderGraph() {
                             }
                             else {if (!counts[i]['Lost']) return 0; return h - y(counts[i]['Lost']) ;}
                         })
-                        .attr("width", 45);
+                        .attr("width", barWidth);
 
             // add the x Axis
             svg.append("g")

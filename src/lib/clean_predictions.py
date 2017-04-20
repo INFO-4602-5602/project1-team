@@ -102,7 +102,7 @@ def make_classifier(print_importances=False):
     global opp
 
     from sklearn import ensemble
-    clf = ensemble.RandomForestClassifier()
+    clf = ensemble.RandomForestClassifier(n_estimators=100)
     fraction = 1
     shuffled = opp.sample(frac=1)
 
@@ -144,7 +144,7 @@ def test_classifier():
     from sklearn import ensemble
 
     shuffled = opp.sample(frac=1)
-    clf = ensemble.RandomForestClassifier()
+    clf = ensemble.RandomForestClassifier(n_estimators=100)
     fraction = 9.0/10.0
 
     trainX = shuffled[features][:int(round(fraction*len(shuffled)))].values
@@ -260,7 +260,7 @@ def merge_clean_data():
             opps.set_value(i,"Industry",'unknown')
 
         if len(n9)==1:
-            if type(n8[0])!=str:
+            if type(n9[0])!=str:
                 opps.set_value(i,"Vertical",'unknown')    
             else:
                 opps.set_value(i,"Vertical",n9[0])
@@ -337,7 +337,7 @@ def make_prediction():
     
 
 
-output_bubbles_json()
+#output_bubbles_json()
 #opps = pd.read_csv("data/concat_data.csv")
 merge_clean_data()
 
@@ -355,8 +355,8 @@ features = opp.columns.difference([u'IsCommitted',"Opportunity ID", "Account ID"
 prediction = [u'IsCommitted']
 
 label_encoder()
-#test_classifier()
-make_classifier(print_importances=False)
+test_classifier()
+make_classifier(print_importances=True)
 #print_tree()
 opps["Prediction"]=pd.Series()
 make_prediction()
