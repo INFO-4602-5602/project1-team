@@ -63,7 +63,7 @@ svg.selectAll("circle")
       return projection([d.Longitude, d.Latitude])[1];
   })
 	.attr("r", function(d) {
-		return Math.sqrt(1);
+		return 0.2;
 	})
 	.style("fill", function (d) {
     var hue;
@@ -106,7 +106,7 @@ svg.selectAll("circle")
       	   .duration(200)
            .style("opacity", .9);
            div.html(d["Account ID"] + "<br/>" + "Success Rate: " + d.Prediction*100+"%"+
-					 "<br/>" + "Total BRR: " + d["Total BRR"])
+					 "<br/>" + "Net Prox: " + d["Network Proximity"])
            .style("left", (d3.event.pageX) + "px")
            .style("top", (d3.event.pageY - 68) + "px")
 	})
